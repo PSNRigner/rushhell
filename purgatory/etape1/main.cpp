@@ -27,13 +27,7 @@ int main(int ac, char **av)
             index = alphabet.size();
         eAction action = gActionTable[state][index];
         state = gStateTable[state][index];
-        if (action == HR)
-        {
-            tokens.push_back(token);
-            token.clear();
-            state = S0;
-        }
-        else if (action == MA)
+        if (action == MA)
             token.push_back(av[1][i]);
         else if (action == ACTION_ERROR)
         {
@@ -47,9 +41,15 @@ int main(int ac, char **av)
             end(tokens, token);
             return 1;
         }
-        else if (state == S7)
+        if (state == S7)
         {
             ok = true;
+        }
+        if (action == HR)
+        {
+            tokens.push_back(token);
+            token.clear();
+            state = S0;
         }
     }
 
