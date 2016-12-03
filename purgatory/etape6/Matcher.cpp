@@ -3,10 +3,13 @@
 //
 
 #include <iostream>
+#include "ExpressionParser.hpp"
 #include "Matcher.hpp"
 
-Matcher::Matcher(const FSA &fsa) : fsa(fsa)
+Matcher::Matcher(const std::string &expression)
 {
+    ExpressionParser expressionParser(expression);
+    this->fsa = expressionParser.parseFSA();
 }
 
 Matcher::~Matcher() {}
@@ -36,7 +39,10 @@ static bool recur(const std::string &str, int &n, int &index, FSA *fsa, const st
 
 bool Matcher::find(const std::string &str, int &n)
 {
-    FSA *sub = this->fsa.subset(str);
+    if (this->fsa == NULL)
+        return false;
+
+    FSA *sub = this->fsa->subset(str);
     n = 0;
     bool ok = false;
     for (int i = 0; i < str.size(); ++i)

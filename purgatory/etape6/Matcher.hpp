@@ -13,12 +13,12 @@ static int no_ref = 0;
 class Matcher
 {
 public:
-    Matcher(const FSA &);
+    Matcher(const std::string &);
     ~Matcher();
 
     bool find(const std::string &, int & = no_ref);
 private:
-    const FSA &fsa;
+    FSA *fsa;
 };
 
 
