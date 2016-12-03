@@ -128,6 +128,7 @@ FSA *FSA::merge(const FSA &fsa1, const FSA &fsa2, MergeType mergeType)
         }
         fsa3->addState(s0);
     }
+
     if (mergeType == FSA::UNION_2)
     {
         State *end = State::createState();
@@ -139,6 +140,21 @@ FSA *FSA::merge(const FSA &fsa1, const FSA &fsa2, MergeType mergeType)
                 (*it)->addLink(end, Edge::LAMBDA);
             }
         fsa3->addState(end);
+    }
+
+    else if (mergeType == FSA::CONCAT)
+    {
+        for (std::vector<State *>::const_iterator it = fsa1.getStates().begin(); it != fsa1.getStates().end(); ++it)
+        {
+            fsa3->addState(*it);
+            if ((*it)->isFinal() && !fsa2.getStates().empty())
+            {
+                (*it)->setFinal(false);
+                (*it)->addLink(*fsa2.getStates().begin(), Edge::LAMBDA);
+            }
+        }
+        for (std::vector<State *>::const_iterator it = fsa2.getStates().begin(); it != fsa2.getStates().end(); ++it)
+            fsa3->addState(*it);
     }
     return fsa3;
 }
