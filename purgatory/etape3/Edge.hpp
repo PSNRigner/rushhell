@@ -11,8 +11,14 @@ public:
     Edge(const char &);
     Edge(const Edge &);
     ~Edge();
+
     Edge &operator=(const Edge &);
     Edge &operator=(const char &);
+
+    bool operator()(char);
+
+private:
+    char c;
 };
 
 #endif //ETAPE3_EDGE_HPP
