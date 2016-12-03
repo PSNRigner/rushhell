@@ -56,3 +56,7 @@ bool Matcher::find(const std::string &str, int &n)
 
     return ok;
 }
+
+Matcher::Matcher(FSA *fsa) : fsa(fsa)
+{
+}
