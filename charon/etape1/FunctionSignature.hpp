@@ -8,7 +8,7 @@
 template <typename T> struct FunctionSignature
 {
 public:
-    typedef T type;
+    typedef T* type;
 };
 
 #endif //ETAPE1_FUNCTIONSIGNATURE_HPP
