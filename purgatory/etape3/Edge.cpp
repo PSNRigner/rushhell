@@ -22,7 +22,7 @@ Edge& Edge::operator=(const Edge &other)
     return *this;
 }
 
-bool Edge::operator()(char c)
+bool Edge::operator()(char c) const
 {
     return this->c == c;
 }

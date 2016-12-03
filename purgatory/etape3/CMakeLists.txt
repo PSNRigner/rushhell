@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.6)
+#cmake_minimum_required(VERSION 3.6)
 project(etape3)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
-set(SOURCE_FILES Edge.cpp main.cpp)
-add_executable(etape3 ${SOURCE_FILES})
+set(SOURCE_FILES Edge.cpp State.cpp FSA.cpp Matcher.cpp main.cpp)
+add_executable(../test_dynamic_fsa ${SOURCE_FILES})

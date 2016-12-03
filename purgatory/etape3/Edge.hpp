@@ -15,7 +15,7 @@ public:
     Edge &operator=(const Edge &);
     Edge &operator=(const char &);
 
-    bool operator()(char);
+    bool operator()(char) const;
 
 private:
     char c;

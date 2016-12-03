@@ -5,6 +5,8 @@
 #ifndef ETAPE3_STATE_HPP
 #define ETAPE3_STATE_HPP
 
+#include <string>
+#include <map>
 #include "Edge.hpp"
 
 class State
@@ -16,8 +18,13 @@ public:
 
     State &operator=(const State &);
     bool operator==(const State &) const;
+    bool operator==(const std::string &) const;
     void setFinal(bool);
     bool isFinal() const;
+    void addLink(State *, Edge &);
+    std::string *getLinked(char) const;
+
+    static State *createState();
 
 private:
     std::map<std::string, Edge> links;
