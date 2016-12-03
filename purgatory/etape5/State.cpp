@@ -69,12 +69,9 @@ std::vector<std::string> State::getLinked(char c) const
     return result;
 }
 
-const std::vector<std::string> State::getLinks() const
+const std::map<std::string, Edge> State::getLinks() const
 {
-    std::vector<std::string> result;
-    for (std::map<std::string, Edge>::const_iterator it = this->links.begin(); it != this->links.end(); ++it)
-        result.push_back(it->first);
-    return result;
+    return this->links;
 }
 
 const std::string &State::getName() const

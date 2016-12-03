@@ -25,6 +25,14 @@ public:
     std::vector<std::string> move(const std::string &, char) const;
     FSA *subset(const std::string &) const;
 
+    enum MergeType {
+        UNION_1,
+        UNION_2,
+        CONCAT
+    };
+
+    static FSA *merge(const FSA &, const FSA &, MergeType = UNION_1);
+
 private:
     std::vector<State *> states;
 };

@@ -4,6 +4,7 @@
 
 int main()
 {
+    delete(State::createState());
     State *s1 = State::createState();
     State *s2 = State::createState();
     State *s3 = State::createState();
@@ -32,7 +33,7 @@ int main()
     Edge r('r');
     Edge i('i');
     Edge l('l');
-    Edge lambda(-1);
+    Edge lambda = Edge::LAMBDA;
 
     s1->addLink(s2, m);
     s2->addLink(s3, e);
@@ -76,10 +77,10 @@ int main()
 
     std::cout << "FSA 1 :" << std::endl << fsa1 << std::endl;
     std::cout << "FSA 2 :" << std::endl << fsa2 << std::endl;
-    FSA fsa3;
-    std::cout << "FSA 3 :" << std::endl << fsa3 << std::endl;
+    FSA *fsa3 = FSA::merge(fsa1, fsa2, FSA::UNION_2);
+    std::cout << "FSA 3 :" << std::endl << *fsa3 << std::endl;
 
-    Matcher matcher(fsa3);
+    Matcher matcher(*fsa3);
     int nbr = 0;
     std::cout << matcher.find("mechant", nbr) << std::endl;
     std::cout << nbr << std::endl;

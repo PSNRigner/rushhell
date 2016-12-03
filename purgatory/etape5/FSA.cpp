@@ -104,18 +104,62 @@ const std::vector<State *> &FSA::getStates() const
     return this->states;
 }
 
+FSA *FSA::merge(const FSA &fsa1, const FSA &fsa2, MergeType mergeType)
+{
+    FSA *fsa3 = new FSA;
+    if (mergeType < FSA::CONCAT)
+    {
+        State *s0 = new State("S0");
+        bool first = true;
+        for (std::vector<State *>::const_iterator it = fsa1.getStates().begin(); it != fsa1.getStates().end(); ++it)
+        {
+            fsa3->addState(*it);
+            if (first)
+                s0->addLink(*it, Edge::LAMBDA);
+            first = false;
+        }
+        first = true;
+        for (std::vector<State *>::const_iterator it = fsa2.getStates().begin(); it != fsa2.getStates().end(); ++it)
+        {
+            fsa3->addState(*it);
+            if (first)
+                s0->addLink(*it, Edge::LAMBDA);
+            first = false;
+        }
+        fsa3->addState(s0);
+    }
+    if (mergeType == FSA::UNION_2)
+    {
+        State *end = State::createState();
+        end->setFinal(true);
+        for (std::vector<State *>::const_iterator it = fsa3->getStates().begin(); it != fsa3->getStates().end(); ++it)
+            if ((*it)->isFinal())
+            {
+                (*it)->setFinal(false);
+                (*it)->addLink(end, Edge::LAMBDA);
+            }
+        fsa3->addState(end);
+    }
+    return fsa3;
+}
+
 std::ostream &operator<<(std::ostream &out, const FSA &fsa)
 {
     out << "digraph fsa {" << std::endl;
     for (std::vector<State *>::const_iterator it = fsa.getStates().begin(); it != fsa.getStates().end(); ++it)
     {
-        std::vector<std::string> links = (*it)->getLinks();
-        for (std::vector<std::string>::const_iterator it2 = links.begin(); it2 != links.end(); ++it2)
+        std::map<std::string, Edge> links = (*it)->getLinks();
+        for (std::map<std::string, Edge>::const_iterator it2 = links.begin(); it2 != links.end(); ++it2)
         {
-            State *state = fsa[*it2];
-            if (state != NULL && state->getLinks().empty())
-                out << "    node [style=filled,color=red]" << std::endl;
-            out << "    " << (*it)->getName() << " -> " << *it2 << std::endl;
+            State *state = fsa[it2->first];
+            if (state != NULL && state->isFinal())
+                out << "    " << it2->first << " [style=filled,color=red]" << std::endl;
+            out << "    " << (*it)->getName() << " -> " << it2->first;
+            if (it2->second.isLambda())
+                out << " [label=\"LAMBDA\"]";
+            else
+                out << " [label=\"" << it2->second << "\"]";
+            out << std::endl;
         }
     }
     out << "}" << std::endl;

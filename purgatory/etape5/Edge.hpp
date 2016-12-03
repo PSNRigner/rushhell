@@ -5,6 +5,8 @@
 #ifndef ETAPE3_EDGE_HPP
 #define ETAPE3_EDGE_HPP
 
+#include <iostream>
+
 class Edge
 {
 public:
@@ -19,8 +21,14 @@ public:
 
     bool isLambda() const;
 
+    char getContent() const;
+
+    static Edge LAMBDA;
+
 private:
     char c;
 };
+
+std::ostream &operator<<(std::ostream &, const Edge &);
 
 #endif //ETAPE3_EDGE_HPP

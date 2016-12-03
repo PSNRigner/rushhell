@@ -23,7 +23,7 @@ public:
     bool isFinal() const;
     void addLink(State *, Edge &);
     std::vector<std::string> getLinked(char) const;
-    const std::vector<std::string> getLinks() const;
+    const std::map<std::string, Edge> getLinks() const;
     const std::string &getName() const;
 
     static State *createState();

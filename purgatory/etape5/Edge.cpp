@@ -4,6 +4,8 @@
 
 #include "Edge.hpp"
 
+Edge Edge::LAMBDA(-1);
+
 Edge::Edge(const char &c) : c(c){}
 
 Edge::Edge(const Edge &other) : c(other.c){}
@@ -30,4 +32,15 @@ bool Edge::operator()(char c) const
 bool Edge::isLambda() const
 {
     return this->c == -1;
+}
+
+char Edge::getContent() const
+{
+    return this->c;
+}
+
+std::ostream &operator<<(std::ostream &out, const Edge &edge)
+{
+    out << edge.getContent();
+    return out;
 }
