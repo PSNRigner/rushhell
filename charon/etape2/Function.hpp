@@ -5,22 +5,46 @@
 #ifndef ETAPE2_FUNCTION_HPP
 #define ETAPE2_FUNCTION_HPP
 
+struct Base
+{
+    virtual void operator()(int) = 0;
+    virtual ~Base(){}
+};
 
-template <typename R, typename ... Args>
-class Function<R(Args...)>
+template <typename T>
+struct Functor : Base
+{
+    T func;
+    Functor(T func) : func(func) {}
+    virtual void operator()(int n)
+    {
+        func(n);
+    }
+};
+
+template <typename T>
+class Function
 {
 public:
-    Function(R (*ptr)(Args...)) : _ptr(ptr)
+    template <typename U>
+    Function(U u)
     {
+        this->ptr = new Functor<U>(u);
     }
 
-    R operator()(Args &&... args)
+    template <typename U>
+    Function(U *u)
     {
-        return _ptr(std::forward<Args>(args)...);
+        this->ptr = new Functor<U *>(u);
+    }
+
+    void operator()(int n)
+    {
+        return ptr->operator()(n);
     }
 
 private:
-    R (*_ptr)(Args...);
+    Base *ptr;
 };
 
 #endif //ETAPE2_FUNCTION_HPP
