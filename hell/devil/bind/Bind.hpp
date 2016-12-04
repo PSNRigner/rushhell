@@ -91,4 +91,88 @@ bind(ReturnType(*f)(X1, X2, X3, X4, X5, X6), Param1 p1, Param2 p2, Param3 p3, Pa
     return Caller<ReturnType, ReturnType(*)(X1, X2, X3, X4, X5, X6), ListType> (f, l);
 }
 
+template <typename ReturnType, typename Object>
+Caller<ReturnType, Object, typename Traits0::Type>
+bind(Object f)
+{
+    typedef TypeList0 ListType;
+    ListType l;
+    return Caller<ReturnType, Object, ListType> (f, l);
+}
+
+template <typename ReturnType, typename Param1, typename Object>
+Caller<ReturnType, Object, typename Traits1<Param1>::Type>
+bind(Object f, Param1 p1)
+{
+    typedef typename GetType<Param1>::Type P1;
+    typedef TypeList1<P1> ListType;
+    ListType l(p1);
+    return Caller<ReturnType, Object, ListType> (f, l);
+}
+
+template <typename ReturnType, typename Param1, typename Param2, typename Object>
+Caller<ReturnType, Object, typename Traits2<Param1, Param2>::Type>
+bind(Object f, Param1 p1, Param2 p2)
+{
+    typedef typename GetType<Param1>::Type P1;
+    typedef typename GetType<Param2>::Type P2;
+    typedef TypeList2<P1, P2> ListType;
+    ListType l(p1, p2);
+    return Caller<ReturnType, Object, ListType> (f, l);
+}
+
+template <typename ReturnType, typename Param1, typename Param2, typename Param3, typename Object>
+Caller<ReturnType, Object, typename Traits3<Param1, Param2, Param3>::Type>
+bind(Object f, Param1 p1, Param2 p2, Param3 p3)
+{
+    typedef typename GetType<Param1>::Type P1;
+    typedef typename GetType<Param2>::Type P2;
+    typedef typename GetType<Param3>::Type P3;
+    typedef TypeList3<P1, P2, P3> ListType;
+    ListType l(p1, p2, p3);
+    return Caller<ReturnType, Object, ListType> (f, l);
+}
+
+template <typename ReturnType, typename Param1, typename Param2, typename Param3, typename Param4, typename Object>
+Caller<ReturnType, Object, typename Traits4<Param1, Param2, Param3, Param4>::Type>
+bind(Object f, Param1 p1, Param2 p2, Param3 p3, Param4 p4)
+{
+    typedef typename GetType<Param1>::Type P1;
+    typedef typename GetType<Param2>::Type P2;
+    typedef typename GetType<Param3>::Type P3;
+    typedef typename GetType<Param4>::Type P4;
+    typedef TypeList4<P1, P2, P3, P4> ListType;
+    ListType l(p1, p2, p3, p4);
+    return Caller<ReturnType, Object, ListType> (f, l);
+}
+
+template <typename ReturnType, typename Param1, typename Param2, typename Param3, typename Param4, typename Param5, typename Object>
+Caller<ReturnType, Object, typename Traits5<Param1, Param2, Param3, Param4, Param5>::Type>
+bind(Object f, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5)
+{
+    typedef typename GetType<Param1>::Type P1;
+    typedef typename GetType<Param2>::Type P2;
+    typedef typename GetType<Param3>::Type P3;
+    typedef typename GetType<Param4>::Type P4;
+    typedef typename GetType<Param5>::Type P5;
+    typedef TypeList5<P1, P2, P3, P4, P5> ListType;
+    ListType l(p1, p2, p3, p4, p5);
+    return Caller<ReturnType, Object, ListType> (f, l);
+}
+
+template <typename ReturnType, typename Param1, typename Param2, typename Param3, typename Param4, typename Param5, typename Param6, typename Object>
+Caller<ReturnType, Object, typename Traits6<Param1, Param2, Param3, Param4, Param5, Param6>::Type>
+bind(Object f, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6)
+{
+    typedef typename GetType<Param1>::Type P1;
+    typedef typename GetType<Param2>::Type P2;
+    typedef typename GetType<Param3>::Type P3;
+    typedef typename GetType<Param4>::Type P4;
+    typedef typename GetType<Param5>::Type P5;
+    typedef typename GetType<Param6>::Type P6;
+    typedef TypeList6<P1, P2, P3, P4, P5, P6> ListType;
+    ListType l(p1, p2, p3, p4, p5, p6);
+    return Caller<ReturnType, Object, ListType> (f, l);
+}
+
 #endif //BIND_BIND_HPP
