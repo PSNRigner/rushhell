@@ -1,3 +1,4 @@
 .idea
 test_functor_type
 build
+*.exe
