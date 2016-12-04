@@ -14,11 +14,11 @@ struct IsPrintable
     typedef char Yes[1];
     typedef char No[2];
 
-    template <size_t N>
-    struct SFINAE {};
+    template <size_t X>
+    struct S {};
 
     template <typename V, typename W>
-    static Yes &isPrintable(SFINAE<sizeof( *static_cast<V*>(NULL) << *static_cast<W*>(NULL) )>* = 0);
+    static Yes &isPrintable(S<sizeof( *static_cast<V*>(NULL) << *static_cast<W*>(NULL) )>* = 0);
 
     template <typename V, typename W>
     static No &isPrintable(...);
