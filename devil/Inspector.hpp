@@ -5,6 +5,7 @@
 #ifndef DEVIL_INSPECTOR_HPP
 #define DEVIL_INSPECTOR_HPP
 
+#include <typeinfo>
 #include <iostream>
 
 template <typename T, typename U>
@@ -47,7 +48,7 @@ struct Printer
     template <typename U>
     static void print(T &t, const U &u, typename enable_if<!IsPrintable<T, U>::ISPRINTABLE, U>::type * = 0)
     {
-        t << "BLOUP";
+        t << typeid(u).name();
     }
 };
 
