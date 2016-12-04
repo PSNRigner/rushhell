@@ -7,7 +7,7 @@
 
 struct Base
 {
-    virtual void operator()(int) = 0;
+    virtual void operator()(char) = 0;
     virtual ~Base(){}
 };
 
@@ -16,7 +16,7 @@ struct Functor : Base
 {
     T func;
     Functor(T func) : func(func) {}
-    virtual void operator()(int n)
+    virtual void operator()(char n)
     {
         func(n);
     }
@@ -38,9 +38,25 @@ public:
         this->ptr = new Functor<U *>(u);
     }
 
-    void operator()(int n)
+    void operator()(char n)
     {
         return ptr->operator()(n);
+    }
+
+    template <typename U>
+    Function &operator=(U u)
+    {
+        delete(this->ptr);
+        this->ptr = new Functor<U>(u);
+        return *this;
+    }
+
+    template <typename U>
+    Function &operator=(U *u)
+    {
+        delete(this->ptr);
+        this->ptr = new Functor<U *>(u);
+        return *this;
     }
 
 private:
