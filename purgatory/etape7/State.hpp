@@ -8,6 +8,7 @@
 #include <string>
 #include <map>
 #include "Edge.hpp"
+#include "Function.hpp"
 
 class State
 {
@@ -26,9 +27,13 @@ public:
     const std::map<std::string, Edge> getLinks() const;
     const std::string &getName() const;
 
+    void setFunctor(Function<void (const std::string &)> *);
+    Function<void (const std::string &)> *getFunctor() const;
+
     static State *createState();
 
 private:
+    Function<void (const std::string &)> *functor;
     std::map<std::string, Edge> links;
     std::string name;
     bool final;

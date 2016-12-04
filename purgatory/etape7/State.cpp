@@ -7,11 +7,11 @@
 #include <iostream>
 #include "State.hpp"
 
-State::State(const std::string &name) : name(name), final(false)
+State::State(const std::string &name) : name(name), final(false), functor(NULL)
 {
 }
 
-State::State(const State &other) : links(other.links), name(other.name), final(other.final)
+State::State(const State &other) : links(other.links), name(other.name), final(other.final), functor(other.functor)
 {
 }
 
@@ -40,14 +40,21 @@ bool State::isFinal() const
     return this->final;
 }
 
+static void test(const std::string &str)
+{
+    std::cout << "Test final : " << str << std::endl;
+}
+
 State *State::createState()
 {
     static int generator = 0;
 
     std::ostringstream oss;
     oss << "S" << generator++;
+    State *state = new State(oss.str());
+    state->setFunctor(new Function<void (const std::string &)>(test));
 
-    return new State(oss.str());
+    return state;
 }
 
 void State::addLink(State *state, Edge &edge)
@@ -77,4 +84,14 @@ const std::map<std::string, Edge> State::getLinks() const
 const std::string &State::getName() const
 {
     return this->name;
+}
+
+void State::setFunctor(Function<void(const std::string &)> *functor)
+{
+    this->functor = functor;
+}
+
+Function<void(const std::string &)> *State::getFunctor() const
+{
+    return this->functor;
 }
