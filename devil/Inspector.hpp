@@ -7,11 +7,6 @@
 
 #include <iostream>
 
-struct sfinae_base {
-    typedef char yes[1];
-    typedef char no[2];
-};
-
 template <typename T, typename U>
 struct IsPrintable
 {
